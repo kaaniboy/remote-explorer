@@ -28,7 +28,12 @@ def up_directory(directory):
 def post_save():
     with open(request.form['location'], 'w') as content:
         content.write(request.form['text'])
-    return redirect("/edit/" + request.form['location'].replace("/", "*"))
+        
+    with open(request.form['location'], 'r') as content:
+        f = File(location=request.form['location'], text = content.read())
+        return render_template('edit.html', data=f, saved=True)
+
+    return "A problem has occurred."
 
 @app.route("/up/<directory>", methods=['GET'])
 def get_up(directory):
