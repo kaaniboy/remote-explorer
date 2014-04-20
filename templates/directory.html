@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>Directory</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" type="text/css"/>
+
+<style type="text/css" media="screen">
+    #up {
+    	margin-left: 15px;
+    	margin-top: 15px;
+    }
+
+    #title {
+    	margin-left: 15px;
+    }
+</style>
+</head>
+
+<body>
+	<h1 id="title">{{ directory.replace("*", "\\") }}</h1>
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" type="text/javascript" charset="utf-8"></script>
+
+	<form action="/up/{{ directory }}" method="get">
+		<input value="Up..." type="submit" class="btn btn-warning" id="up">
+	</form>
+
+	{% if files|length > 0 %}
+	<ul>
+	    {% for file in files %}
+	        <li><a href="/edit/{{ file.directory + file.name}}">{{ file.name }}</a></li>
+	    {% endfor %}
+	</ul>
+	{% else %}
+		<li>There are no files in this folder.</li>
+	{% endif %}
+</body>
+</html>
